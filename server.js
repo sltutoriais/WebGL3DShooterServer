@@ -327,7 +327,7 @@ function gameloop() {
 
 setInterval(gameloop, 1000);//updates the list of best players every 1000 milliseconds
 
-http.listen(process.env.PORT ||3000, function(){
+http.listen(process.env.PORT ||3000,"192.168.1.4", function(){
 	console.log('listening on *:3000');
 });
 
