@@ -130,7 +130,6 @@ socket.on("RESPAW",function(_data){
 
   var pack = JSON.parse(_data);
  
-  console.log("receive respaw");
   
   if(current_player)
   {
@@ -174,8 +173,9 @@ socket.on("RESPAW",function(_data){
 //create a callback fuction to listening EmitPosAndRot() method in Shooter3DNetworkMannager.cs unity script
 socket.on("POS_AND_ROT",function(_data){
 
-
- var pack = JSON.parse(_data);
+  if(current_player)
+  {
+     var pack = JSON.parse(_data);
  
  clientLookup[current_player.id].dx = pack.dx;
  
@@ -192,13 +192,19 @@ socket.on("POS_AND_ROT",function(_data){
 
  // send current user position and  rotation in broadcast to all clients in game
  socket.broadcast.emit('UPDATE_POS_AND_ROT',data.id,data.dx,data.dz,data.rotation);
+  }
+
 
 });//END_SOCKET.ON
 
 //create a callback fuction to listening EmitShoot() method in Shooter3DNetworkMannager.cs unity script
 socket.on("SHOOT",function(){
- 
-  socket.broadcast.emit("UPDATE_SHOOT",current_player.id);
+  
+  if(current_player)
+  {
+   socket.broadcast.emit("UPDATE_SHOOT",current_player.id);
+  }
+  
 
 });//END_SOCKET.ON
 
@@ -207,7 +213,7 @@ socket.on('GET_BEST_KILLERS',function(){
 
 
   for (var j = 0; j < leaderboard.length; j++) {
-              console.log("send player: "+leaderboard[j].id);
+            
 		      socket.emit('UPDATE_BEST_KILLER',leaderboard[j].name,j,leaderboard[j].kills);
 		   
 		   }

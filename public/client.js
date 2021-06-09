@@ -64,6 +64,8 @@ window.addEventListener('load', function() {
 		}
 	 
 	});
+	
+	
 
 	  socket.on('UPDATE_SHOOT', function(id) {
 				      		
